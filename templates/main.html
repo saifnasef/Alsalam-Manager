@@ -5,28 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="static/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: right;
+        }
+
+        .header a {
+            text-decoration: none;
+        }
+
+        .logout-button {
+            background-color: #fff;
+            color: #007bff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
-        <button class="logout-button">Logout</button>
+        <a href="logout">
+            <button class="logout-button">Logout</button>
+        </a>
     </div>
     <div class="container">
-        {% if level == 1 %}
-        <a href="add">
-            <button class="action-button">Add</button>
-        </a>
-        <button class="action-button">Remove</button>
-        <button class="action-button">View</button>
-        {% elif level == 2 %}
-        <a href="add">
-            <button class="action-button">Add</button>
-        </a>
-        <button class="action-button">Remove</button>
-        {% elif level == 3 %}
-        <a href="add">
-            <button class="action-button">Add</button>
-        </a>
-        {% endif %}
+        <a href="add_manager" class="action-button">Add</a>
+        <a href="remove" class="action-button">Remove</a>
+        <a href="generate" class="action-button">View</a>
     </div>
 </body>
 </html>

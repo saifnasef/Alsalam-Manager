@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="header">
+        <a href="logout">
+          <button class="logout-button">Logout</button>
+        </a>
+    </div>
+    <div class="container">
+        {% if level == 1 %}
+        <a href="add">
+            <button class="action-button">Add</button>
+        </a>
+
+        <a href="remove">
+            <button class="action-button">Remove</button>
+        </a>
+
+        <a href="generate">
+            <button class="action-button">View</button>
+        </a>
+
+        {% elif level == 2 %}
+        <a href="add">
+            <button class="action-button">Add</button>
+        </a>
+        <a href="remove">
+            <button class="action-button">Remove</button>
+        </a>
+        {% elif level == 3 %}
+        <a href="add">
+            <button class="action-button">Add</button>
+        </a>
+        {% endif %}
+    </div>
+</body>
+</html>

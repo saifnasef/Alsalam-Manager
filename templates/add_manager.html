@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add</title>
     <style>
         body {
@@ -33,7 +35,8 @@
         }
 
         input[type="text"],
-        input[type="number"] {
+        input[type="number"],
+        select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -62,7 +65,7 @@
     </style>
 </head>
 <body>
-    <h1>Name and Quantity</h1>
+    <h1>Choose warehouse, name and quantity to add</h1>
     <form method="POST">
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" required>
@@ -70,8 +73,14 @@
         <label for="item">Name:</label>
         <input type="text" id="item" name="item" required>
         <br>
+        <label for="shop">Shop:</label>
+        <select id="shop" name="shop">
+            <option value="manial">Manial</option>
+            <option value="gezera">Gezera</option>
+            <option value="tamooh">Tamooh</option>
+        </select>
+        <br>
         <button type="submit">Submit</button>
     </form>
-    <p>You are now accessing {{ shop }}</p>
 </body>
 </html>
