@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <link rel="stylesheet" href="static/style.css"> <!-- You can define your CSS styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px 12px;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Styles for the drop-down menus and submit button */
+        .dropdown-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px; /* Adjust the width as needed */
+        }
+
+        /* Center the submit button */
+        .submit-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Red text for the error message */
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Viewing Inventory ({{ shop_name }})</h1>
+
+    <!-- Drop-down menu with options -->
+    <div class="dropdown-container">
+        <form id="option-form" method="POST" action="view">
+            <label for="dropdown1">Inventory Type</label>
+            <select id="dropdown1" name="inv-type" onchange="checkOptions()">
+                <option value="">Select Inventory Type</option>
+                <option value="1">Aluminium</option>
+                <option value="2">Accessories</option>
+                <option value="3">Fiber</option>
+            </select>
+            <!-- Error message container -->
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+
+    <!-- Always visible submit button -->
+    <div class="submit-button-container">
+        <button id="submit-button" type="button" onclick="validateSelection()">Submit</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Sold</th>
+                <th>Bought</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        // Function to check if both options have been selected
+        function checkOptions() {
+            const dropdown1Value = document.getElementById("dropdown1").value;
+            // If both options are selected, hide the error message
+            if (dropdown1Value) {
+                document.getElementById("error-message").textContent = "";
+            }
+        }
+
+        // Function to validate the selection before submitting
+        function validateSelection() {
+            const dropdown1Value = document.getElementById("dropdown1").value;
+            const errorContainer = document.getElementById("error-message");
+
+            // Check if both options are selected
+            if (!dropdown1Value) {
+                // Show error message
+                errorContainer.textContent = "Make sure to select both Place and inventory type.";
+            } else {
+                // Hide error message and submit the form
+                errorContainer.textContent = "";
+                document.getElementById("option-form").submit();
+            }
+        }
+    </script>
+</body>
+</html>

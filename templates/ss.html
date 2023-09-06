@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choose an Option</title>
+    <style>
+        /* Style the container */
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Style the option buttons */
+        .option-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        /* Add a hover effect */
+        .option-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Choose an Option:</h2>
+    <button class="option-button" id="option1">Option 1</button>
+    <button class="option-button" id="option2">Option 2</button>
+    <button class="option-button" id="option3">Option 3</button>
+    <p id="selectedOption"></p>
+</div>
+
+<script>
+    // Get references to the option buttons
+    var option1Button = document.getElementById("option1");
+    var option2Button = document.getElementById("option2");
+    var option3Button = document.getElementById("option3");
+
+    // Get a reference to the selected option element
+    var selectedOptionText = document.getElementById("selectedOption");
+
+    // Add click event listeners to the option buttons
+    option1Button.addEventListener("click", function() {
+        selectedOptionText.textContent = "You selected: Option 1";
+    });
+
+    option2Button.addEventListener("click", function() {
+        selectedOptionText.textContent = "You selected: Option 2";
+    });
+
+    option3Button.addEventListener("click", function() {
+        selectedOptionText.textContent = "You selected: Option 3";
+    });
+</script>
+
+</body>
+</html>

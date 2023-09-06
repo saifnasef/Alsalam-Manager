@@ -16,7 +16,9 @@
         .header {
             background-color: #007bff;
             padding: 10px;
-            text-align: right;
+            display: flex;
+            justify-content: space-between; /* Align elements to the left and right */
+            align-items: center;
         }
 
         .header a {
@@ -30,6 +32,7 @@
             padding: 5px 10px;
             cursor: pointer;
             font-weight: bold;
+            margin-left: auto; /* Push the logout button to the right */
         }
 
         .container {
@@ -49,18 +52,42 @@
             font-weight: bold;
             text-align: center;
         }
+
+        .user-info {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: left; /* Align user details to the left */
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            font-size: 16px; /* Adjust font size as needed */
+            color: #007bff; /* Blue color for text */
+        }
+
+        .user-info p span {
+            font-weight: bold;
+            color: #333; /* Darker text color */
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <div class="user-info">
+            <p><span>Name:</span> {{ loggedin }}</p>
+            <p><span>Level:</span> {{ level }}</p>
+            <p><span>Place:</span> {{ loc }}</p>
+        </div>
         <a href="logout">
             <button class="logout-button">Logout</button>
         </a>
     </div>
     <div class="container">
         <a href="add_manager" class="action-button">Add</a>
-        <a href="remove" class="action-button">Remove</a>
-        <a href="generate" class="action-button">View</a>
+        <a href="remove_manager" class="action-button">Remove</a>
+        <a href="view" class="action-button">View</a>
     </div>
 </body>
 </html>

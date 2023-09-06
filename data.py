@@ -1,30 +1,46 @@
 import sqlite3
 import bcrypt
+import random
+import string
+counter = 1
 table = ''
-
-data = input("1) inventory\n2) User\nchoose: ")
+sh = ['gezera', 'tamooh', 'manial']
+intype = ['acc', 'fiber', 'alum']
+data = input("1) inventory\n2) User\n3) fill inventory\nChoose: ")
 if data == '1':
 	con = sqlite3.connect('inventory.db')
-	table = input("1) manial\n2) gezera\n3) tamooh\nChoose: ")
-	if table == '1':
-		table = "alum_manial"
-	elif table == '2':
-		table = "alum_gezera"
-	elif table == '3':
-		table = "alum_tamooh"
+	shop = input("1) manial\n2) gezera\n3) tamooh\nChoose: ")
+	typ = input("1) alum,\n2) acc\n3) fiber\nChoose: ")
+	
+elif data == '3':
+	con = sqlite3.connect('inventory.db')
+	for i in sh:
+		for j in intype:
+			table = "%s_%s"%(j, i)
+			for k in range(3):
+				random_name = ''.join(random.choice(string.ascii_letters) for _ in range(3))
+				fed = (random_name, random.randint(1, 100), random.randint(1, 100), random.randint(1, 100))
+				temp = 'insert into %s values %s;'%(table, tuple(fed))
+				#print(temp)
+				cursor = con.cursor()
+				cursor.execute(temp)
+				con.commit()
+				print('done %d'%counter)
+				counter +=1
+	con.close()
+	exit()
 elif data == '2':
 	con = sqlite3.connect('users.db')
 	table = "user"
 else:
 	exit("Invalid input")
 
-
 cursor = con.cursor()
+
 cursor.execute("pragma table_info(%s);"%(table))
 out = cursor.fetchall()
 for i in out:
 	print(i)
-
 new = input("Data to insert (separated by commas): ").split(', ')
 if data == '2':
 	temp = new[2].encode('utf-8')
@@ -36,5 +52,5 @@ if len(new) == len(out):
 	cursor.execute(add)
 	con.commit()
 	print(add)
-
+con.close()
 

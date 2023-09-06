@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Remove</title>
+    <title>Add</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,19 +59,42 @@
             margin-top: 20px;
             color: #333;
         }
+
+        .error-text {
+            color: red;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Name and Quantity</h1>
-    <form method="POST">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
+    <h1>Remove</h1>
+    <form method="POST" onsubmit="return validateForm()">
         <br>
         <label for="item">Name:</label>
         <input type="text" id="item" name="item" required>
         <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
         <button type="submit">Submit</button>
+        <p id="error-message" class="error-text"></p>
     </form>
     <p>You are now accessing {{ shop }}</p>
+
+    <script>
+        function validateForm() {
+            var quantity = document.getElementById("quantity").value;
+            var errorMessage = document.getElementById("error-message");
+            
+            if (quantity <= 0) {
+                errorMessage.textContent = "Quantity should be bigger than 0";
+                return false; // Prevent form submission
+            } else {
+                errorMessage.textContent = ""; // Clear any previous error message
+                return true; // Allow form submission
+            }
+        }
+    </script>
 </body>
 </html>

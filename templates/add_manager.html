@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add</title>
     <style>
         body {
@@ -54,6 +52,29 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            display: block;
+            margin: 20px auto; /* Center the submit button */
+        }
+
+        .option-buttons-container {
+            text-align: center; /* Center align the buttons container */
+        }
+
+        button.option-button {
+            background-color: #fff;
+            color: #333;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button.option-button.clicked {
+            background-color: #007bff;
+            color: #fff;
         }
 
         p {
@@ -62,17 +83,24 @@
             margin-top: 20px;
             color: #333;
         }
+
+        .error-text {
+            color: red;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Choose warehouse, name and quantity to add</h1>
-    <form method="POST">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
+    <h1>Add</h1>
+    <form method="POST" onsubmit="return validateForm()">
         <br>
         <label for="item">Name:</label>
         <input type="text" id="item" name="item" required>
         <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
         <label for="shop">Shop:</label>
         <select id="shop" name="shop">
             <option value="manial">Manial</option>
@@ -80,7 +108,65 @@
             <option value="tamooh">Tamooh</option>
         </select>
         <br>
-        <button type="submit">Submit</button>
+        <input type="hidden" id="inv-type" name="inv-type" value="" required>
+        
+        <!-- Wrap the option buttons in a container div -->
+        <div class="option-buttons-container">
+            <button type="button" class="option-button" id="fiberButton" onclick="selectOption('fiber')">Fiber</button>
+            <button type="button" class="option-button" id="accessoriesButton" onclick="selectOption('accessories')">Accessories</button>
+            <button type="button" class="option-button" id="aluminiumButton" onclick="selectOption('aluminium')">Aluminium</button>
+        </div>
+        
+        <br>
+        <button type="submit" id="submitButton">Submit</button>
+        <p id="error-message" class="error-text"></p>
     </form>
+
+    <script>
+        function validateForm() {
+            var quantity = document.getElementById("quantity").value;
+            var errorMessage = document.getElementById("error-message");
+            var selectedOption = document.getElementById("inv-type").value;
+            
+            if (quantity <= 0) {
+                errorMessage.textContent = "Quantity should be bigger than 0";
+                return false; // Prevent form submission
+            } else if (!selectedOption) {
+                errorMessage.textContent = "Please select one of the options (Fiber, Accessories, or Aluminium)";
+                return false; // Prevent form submission
+            } else {
+                errorMessage.textContent = ""; // Clear any previous error message
+                return true; // Allow form submission
+            }
+        }
+
+        function selectOption(option) {
+            // Get references to all option buttons
+            var fiberButton = document.getElementById("fiberButton");
+            var accessoriesButton = document.getElementById("accessoriesButton");
+            var aluminiumButton = document.getElementById("aluminiumButton");
+
+            // Remove the "clicked" class from all buttons
+            fiberButton.classList.remove("clicked");
+            accessoriesButton.classList.remove("clicked");
+            aluminiumButton.classList.remove("clicked");
+
+            // Add the "clicked" class to the selected button
+            switch (option) {
+                case 'fiber':
+                    fiberButton.classList.add("clicked");
+                    break;
+                case 'accessories':
+                    accessoriesButton.classList.add("clicked");
+                    break;
+                case 'aluminium':
+                    aluminiumButton.classList.add("clicked");
+                    break;
+                default:
+                    break;
+            }
+            document.getElementById("inv-type").value = option;
+        }
+    </script>
 </body>
 </html>
